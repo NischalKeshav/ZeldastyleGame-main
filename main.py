@@ -1,6 +1,6 @@
 import pygame
 import math
-
+import pymunk, pymunk.pygame_util
 
 # pygame setup
 pygame.init()
@@ -8,10 +8,14 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt=.1
+
+space = pymunk.Space()
+space.gravity = 0,0
+
 from charactarlev import charactar
 from basicfig import basicfig
-player=charactar(screen)
-bush=basicfig(screen,80,80)
+player=charactar(screen,space)
+bush=basicfig(screen,space,80,80)
 entities = pygame.sprite.Group()
 entities.add(player)
 entities.add(bush)

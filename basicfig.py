@@ -1,8 +1,9 @@
 import pygame
 import math
 from pygame.locals import*
+import pymunk, pymunk.pygame_util
 class basicfig(pygame.sprite.Sprite):
-    def __init__(self, screen,l,w,orgposition=True,img=True):
+    def __init__(self, screen,space,l,w,orgposition=True,img=True):
         self.xpos =200
         self.ypos=200
         pygame.sprite.Sprite.__init__(self)

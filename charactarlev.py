@@ -1,8 +1,9 @@
 import pygame
 import math
 from pygame.locals import*
+import pymunk, pymunk.pygame_util
 class charactar(pygame.sprite.Sprite):
-    def __init__(self, screen):
+    def __init__(self, screen,space):
         self.xpos =640
         self.ypos=360
         pygame.sprite.Sprite.__init__(self)
