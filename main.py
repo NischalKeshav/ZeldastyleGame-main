@@ -14,55 +14,53 @@ space.gravity = (0,900)
 
 from charactarlev import charactar
 from basicfig import basicfig
-player=charactar(screen,space)
+from enemy import enemy
+#player=charactar(screen,space)
 bush=basicfig(screen,space)
 bush2=basicfig(screen,space,(100,500))
 entities = pygame.sprite.Group()
-entities.add(player)
+
 entities.add(bush)
 entities.add(bush2)
-
+from enemy import enemy
+#enemy=enemy(space,screen,(500,100) )
 handler=space.add_collision_handler(1,2)
-print(bush.poly.body.position)
+
+player=charactar(screen,space,handler)
+entities.add(player)
+#print(bush.poly.body.position)
 def collide(arbiter,space,data):
     #print("hello")
     player.xchange=-player.xchange*2
     player.ychange= -player.ychange*2
-     zplayer.xchange=-0
-    player.ychange= -0
-    return(False)
+    return(True)
 def Resetpostcollision(arbiter,space,data):
     player.xchange= 0
     player.ychange= 0
-    print(arbiter)
+    
     #print("true")
     return True
 def presolve(arbiter,space,data):
-    #print("yo")
-    #print(handler._get_post_solve)
-    player.xchange=-player.xchange*3
-    player.ychange= -player.ychange*3
     return True
 handler.begin=collide
 handler.separate=Resetpostcollision
 #handler.pre_solve=presolve
-x=1
-print(-x)
+
 while running:
     screen.fill("green")
     space.step(0.02)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_a:
-                player.ychange = -400 * dt
-            elif event.key== pygame.K_d:
-                player.xchange= 400 * dt
-            elif event.key==pygame.K_w:
-                player.change= -400 * dt
-            if event.key==pygame.K_s:
-                player.ychange= 400 * dt
+        #if event.type==pygame.KEYDOWN:
+            #if event.key==pygame.K_a:
+             #   player.ychange = -400 * dt
+           # elif event.key== pygame.K_d:
+           #     player.xchange= 400 * dt
+           # elif event.key==pygame.K_w:
+           #     player.xchange= -400 * dt
+           # if event.key==pygame.K_s:
+            #    player.ychange= 400 * dt
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a and player.xchange<0:
                   player.xchange=0
@@ -83,16 +81,17 @@ while running:
     entities.update()#update sprite
     entities.draw(screen)#update sprite
     pygame.display.flip()#update sprite
+    
 
     keys =pygame.key.get_pressed()
-    #if keys[pygame.K_w]:
-     #   player.ychange = -400 * dt
-    #if keys[pygame.K_s]:
-      #  player.ychange= 400 * dt
-    #if keys[pygame.K_a]:
-     #   player.xchange= -400 * dt
-    #if keys[pygame.K_d]:
-       # player.xchange= 400 * dt
+    if keys[pygame.K_w]:
+        player.ychange = -400 * dt
+    if keys[pygame.K_s]:
+        player.ychange= 400 * dt
+    if keys[pygame.K_a]:
+        player.xchange= -400 * dt
+    if keys[pygame.K_d]:
+        player.xchange= 400 * dt
     dt= clock.tick(60)/500  # limits FPS to 60
     #if math.sqrt(player.ychange**2+player.xchange**2)>0a:
         #print(math.sqrt(player.ychange**2+player.xchange**2))
