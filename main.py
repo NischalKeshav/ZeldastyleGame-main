@@ -28,6 +28,8 @@ def collide(arbiter,space,data):
     #print("hello")
     player.xchange=-player.xchange*2
     player.ychange= -player.ychange*2
+     zplayer.xchange=-0
+    player.ychange= -0
     return(False)
 def Resetpostcollision(arbiter,space,data):
     player.xchange= 0
@@ -52,14 +54,23 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_a:
+                player.ychange = -400 * dt
+            elif event.key== pygame.K_d:
+                player.xchange= 400 * dt
+            elif event.key==pygame.K_w:
+                player.change= -400 * dt
+            if event.key==pygame.K_s:
+                player.ychange= 400 * dt
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a and player.xchange<0:
                   player.xchange=0
-            if event.key == pygame.K_d and player.xchange>0:
+            elif event.key == pygame.K_d and player.xchange>0:
                   player.xchange=0
-            if event.key == pygame.K_w and player.ychange<0:
+            elif event.key == pygame.K_w and player.ychange<0:
                   player.ychange=0
-            if event.key == pygame.K_s and player.ychange>0:
+            elif event.key == pygame.K_s and player.ychange>0:
                   player.ychange=0
 
 
@@ -74,14 +85,14 @@ while running:
     pygame.display.flip()#update sprite
 
     keys =pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player.ychange = -400 * dt
-    if keys[pygame.K_s]:
-        player.ychange= 400 * dt
-    if keys[pygame.K_a]:
-        player.xchange= -400 * dt
-    if keys[pygame.K_d]:
-        player.xchange= 400 * dt
+    #if keys[pygame.K_w]:
+     #   player.ychange = -400 * dt
+    #if keys[pygame.K_s]:
+      #  player.ychange= 400 * dt
+    #if keys[pygame.K_a]:
+     #   player.xchange= -400 * dt
+    #if keys[pygame.K_d]:
+       # player.xchange= 400 * dt
     dt= clock.tick(60)/500  # limits FPS to 60
     #if math.sqrt(player.ychange**2+player.xchange**2)>0a:
         #print(math.sqrt(player.ychange**2+player.xchange**2))
