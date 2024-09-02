@@ -10,21 +10,23 @@ running = True
 dt=.1
 
 space = pymunk.Space()
-space.gravity = (0,900)
+space.gravity = (0,0)
 
 from charactarlev import charactar
 from basicfig import basicfig
 from enemy import enemy
+handler=space.add_collision_handler(1,2)
+enemy1=enemy(space,screen,handler,(100,400))
 #player=charactar(screen,space)
 bush=basicfig(screen,space)
-bush2=basicfig(screen,space,(100,500))
+bush2=basicfig(screen,space,(500,100))
 entities = pygame.sprite.Group()
-
+entities.add(enemy1)
 entities.add(bush)
 entities.add(bush2)
 from enemy import enemy
 #enemy=enemy(space,screen,(500,100) )
-handler=space.add_collision_handler(1,2)
+
 
 player=charactar(screen,space,handler)
 entities.add(player)
