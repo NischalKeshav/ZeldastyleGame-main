@@ -16,10 +16,10 @@ from charactarlev import charactar
 from basicfig import basicfig
 from enemy import enemy
 handler=space.add_collision_handler(1,2)
-enemy1=enemy(space,screen,handler,(100,400))
+enemy1=enemy(space,screen,handler,(400,100))
 #player=charactar(screen,space)
 bush=basicfig(screen,space)
-bush2=basicfig(screen,space,(500,100))
+bush2=basicfig(screen,space,(100,500))
 entities = pygame.sprite.Group()
 entities.add(enemy1)
 entities.add(bush)
@@ -29,6 +29,9 @@ from enemy import enemy
 
 
 player=charactar(screen,space,handler)
+handler2=space.add_collision_handler(2,2)
+
+
 entities.add(player)
 #print(bush.poly.body.position)
 def collide(arbiter,space,data):
@@ -43,26 +46,25 @@ def Resetpostcollision(arbiter,space,data):
     #print("true")
     return True
 def presolve(arbiter,space,data):
+    player.xchange= 0
+    player.ychange= 0
     return True
+def collide2(arbiter,space,data):
+    enemy1.xchange=-enemy1.xchange*2
+    enemy1.ychange= -enemy1.ychange*2
 handler.begin=collide
 handler.separate=Resetpostcollision
-#handler.pre_solve=presolve
 
+handler2.begin=collide2
+#handler.pre_solve=presolve
+#handler2.begin=collide2
 while running:
     screen.fill("green")
     space.step(0.02)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        #if event.type==pygame.KEYDOWN:
-            #if event.key==pygame.K_a:
-             #   player.ychange = -400 * dt
-           # elif event.key== pygame.K_d:
-           #     player.xchange= 400 * dt
-           # elif event.key==pygame.K_w:
-           #     player.xchange= -400 * dt
-           # if event.key==pygame.K_s:
-            #    player.ychange= 400 * dt
+        
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a and player.xchange<0:
                   player.xchange=0
@@ -80,6 +82,7 @@ while running:
     player.update1(dt)
     bush.update1(dt)
     bush2.update1(dt)
+    enemy1.update1()
     entities.update()#update sprite
     entities.draw(screen)#update sprite
     pygame.display.flip()#update sprite
